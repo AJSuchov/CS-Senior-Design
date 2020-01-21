@@ -1,0 +1,171 @@
+package com.example.testofdb;
+
+import android.database.Cursor;
+import android.os.Bundle;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    DatabaseHelper myDb;
+    EditText dive_num,  date,  location,  site,  temperature,
+            visibility,  max_depth,  bottom_time,  saftey,
+            total_time,  weight,  suit_type,  thickness,
+            air_type,  comments,  sign_first,  sign_last,
+            date_sign,  sign_dive_num,  company;
+
+
+    Button btnAddData;
+    Button btnViewData;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        myDb = new DatabaseHelper(this);
+
+        dive_num = (EditText)findViewById(R.id.dive_number);
+        date = (EditText)findViewById(R.id.date);
+        location = (EditText)findViewById(R.id.location);
+        site = (EditText)findViewById(R.id.site);
+        temperature = (EditText)findViewById(R.id.temperature);
+        visibility  = (EditText)findViewById(R.id.visibility);
+        max_depth = (EditText)findViewById(R.id.max_depth);
+        bottom_time = (EditText)findViewById(R.id.bottom_time);
+        saftey = (EditText)findViewById(R.id.time_safe);
+        total_time = (EditText)findViewById(R.id.tot_time);
+        weight = (EditText)findViewById(R.id.weight);
+        suit_type = (EditText)findViewById(R.id.suit_type);
+        thickness = (EditText)findViewById(R.id.thickness);
+        air_type = (EditText)findViewById(R.id.air_type);
+        comments = (EditText)findViewById(R.id.comments);
+        sign_first = (EditText)findViewById(R.id.sign_first);
+        sign_last = (EditText)findViewById(R.id.sign_last);
+        date_sign = (EditText)findViewById(R.id.sign_date);
+        sign_dive_num = (EditText)findViewById(R.id.signature_dive_num);
+        company = (EditText)findViewById(R.id.sign_company);
+
+        btnAddData = (Button)findViewById(R.id.save);
+        btnViewData = (Button)findViewById(R.id.view_all);
+
+        AddData();
+        viewAll();
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+    public void AddData() {
+        btnAddData.setOnClickListener(
+                new View.OnClickListener() {
+
+                    public void onClick(View v) {
+                        boolean isInserted = myDb.insertData(dive_num.getText().toString(), date.getText().toString(), location.getText().toString(), site.getText().toString(), temperature.getText().toString(),
+                                visibility.getText().toString(), max_depth.getText().toString(), bottom_time.getText().toString(), saftey.getText().toString(),
+                                total_time.getText().toString(), weight.getText().toString(), suit_type.getText().toString(), thickness.getText().toString(),
+                                air_type.getText().toString(), comments.getText().toString(), sign_first.getText().toString(), sign_last.getText().toString(),
+                                date_sign.getText().toString(), sign_dive_num.getText().toString(), company.getText().toString());
+                        if (isInserted == true)
+                            Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(MainActivity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
+
+    public void viewAll(){
+        btnViewData.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        Cursor res = myDb.getAllData();
+                        if(res.getCount() == 0){
+                            // show message
+                            showMessage("Error","Nothing Found");
+                            return;
+                        }else{
+                            StringBuffer buffer = new StringBuffer();
+                            while (res.moveToNext()){
+                                buffer.append("Id: "+ res.getString(0)+"\n");
+                                buffer.append("Dive_Number: "+ res.getString(1)+"\n");
+                                buffer.append("Date: "+ res.getString(2)+"\n");
+                                buffer.append("Location: "+ res.getString(3)+"\n");
+                                buffer.append("Site: "+ res.getString(4)+"\n");
+                                buffer.append("Temperature: "+ res.getString(5)+"\n");
+                                buffer.append("Visibility: "+ res.getString(6)+"\n");
+                                buffer.append("Max Depth: "+ res.getString(7)+"\n");
+                                buffer.append("Bottom Time: "+ res.getString(8)+"\n");
+                                buffer.append("Time of Saftey Stop: "+ res.getString(9)+"\n");
+                                buffer.append("Total Time: "+ res.getString(10)+"\n");
+                                buffer.append("Weight: "+ res.getString(11)+"\n");
+                                buffer.append("Suit Type: "+ res.getString(12)+"\n");
+                                buffer.append("Thickness: "+ res.getString(13)+"\n");
+                                buffer.append("Air Type: "+ res.getString(14)+"\n");
+                                buffer.append("Comments: "+ res.getString(15)+"\n");
+                                buffer.append("First Name Signature: "+ res.getString(16)+"\n");
+                                buffer.append("Last Name Signature: "+ res.getString(17)+"\n");
+                                buffer.append("Date_Signed: "+ res.getString(18)+"\n");
+                                buffer.append("Signed Diver Number: "+ res.getString(19)+"\n");
+                                buffer.append("Company: "+ res.getString(20)+"\n\n");
+                            }
+
+                            // Show all data
+                            showMessage("Data",buffer.toString());
+                        }
+                    }
+                }
+        );
+    }
+
+    public void showMessage(String title, String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}
