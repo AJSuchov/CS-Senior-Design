@@ -23,12 +23,13 @@ public class MainActivity extends AppCompatActivity {
             visibility,  max_depth,  bottom_time,  saftey,
             total_time,  weight,  suit_type,  thickness,
             air_type,  comments,  sign_first,  sign_last,
-            date_sign,  sign_dive_num,  company;
+            date_sign,  sign_dive_num,  company, id;
 
 
     Button btnAddData;
     Button btnViewData;
-
+    Button btnUpdateData;
+    Button btnDelete;
 
 
     @Override
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         myDb = new DatabaseHelper(this);
 
+        id = (EditText)findViewById(R.id.id_input);
         dive_num = (EditText)findViewById(R.id.dive_number);
         date = (EditText)findViewById(R.id.date);
         location = (EditText)findViewById(R.id.location);
@@ -63,9 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
         btnAddData = (Button)findViewById(R.id.save);
         btnViewData = (Button)findViewById(R.id.view_all);
+        btnUpdateData = (Button)findViewById(R.id.update);
+        btnDelete = (Button)findViewById(R.id.delete);
 
         AddData();
         viewAll();
+        UpdateData();
+        DeleteData();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +81,38 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void DeleteData(){
+        btnDelete.setOnClickListener(
+                new View.OnClickListener(){
+                    public void onClick(View v){
+                        Integer deletedRows = myDb.deleteData(id.getText().toString());
+                        if(deletedRows > 0)
+                            Toast.makeText(MainActivity.this, "Data Deleted", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(MainActivity.this, "Data not Deleted", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
+
+    public void UpdateData(){
+        btnUpdateData.setOnClickListener(
+            new View.OnClickListener(){
+                public void onClick(View v){
+                    boolean isUpdate = myDb.updateData(id.getText().toString(),dive_num.getText().toString(), date.getText().toString(), location.getText().toString(), site.getText().toString(), temperature.getText().toString(),
+                            visibility.getText().toString(), max_depth.getText().toString(), bottom_time.getText().toString(), saftey.getText().toString(),
+                            total_time.getText().toString(), weight.getText().toString(), suit_type.getText().toString(), thickness.getText().toString(),
+                            air_type.getText().toString(), comments.getText().toString(), sign_first.getText().toString(), sign_last.getText().toString(),
+                            date_sign.getText().toString(), sign_dive_num.getText().toString(), company.getText().toString());
+                        if (isUpdate == true)
+                            Toast.makeText(MainActivity.this, "Data Updated", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(MainActivity.this, "Data not Updated", Toast.LENGTH_LONG).show();
+                }
+            }
+        );
     }
     public void AddData() {
         btnAddData.setOnClickListener(
