@@ -94,5 +94,45 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
         return res;
     }
+
+    public boolean updateData(String id, String dive_num, String date, String location, String site, String temperature,
+                              String visibility, String max_depth, String bottom_time, String saftey,
+                              String total_time, String weight, String suit_type, String thickness,
+                              String air_type, String comments, String sign_first, String sign_last,
+                              String date_sign, String sign_dive_num, String company){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(COL_1,id);
+        contentValues.put(COL_2,dive_num);
+        contentValues.put(COL_3,date);
+        contentValues.put(COL_4,location);
+        contentValues.put(COL_5,site);
+        contentValues.put(COL_6,temperature);
+        contentValues.put(COL_7,visibility);
+        contentValues.put(COL_8,max_depth);
+        contentValues.put(COL_9,bottom_time);
+        contentValues.put(COL_10,saftey);
+        contentValues.put(COL_11,total_time);
+        contentValues.put(COL_12,weight);
+        contentValues.put(COL_13,suit_type);
+        contentValues.put(COL_14,thickness);
+        contentValues.put(COL_15,air_type);
+        contentValues.put(COL_16,comments);
+        contentValues.put(COL_17,sign_first);
+        contentValues.put(COL_18,sign_last);
+        contentValues.put(COL_19,date_sign);
+        contentValues.put(COL_20,sign_dive_num);
+        contentValues.put(COL_21,company);
+
+        db.update(TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+
+        return true;
+    }
+
+    public Integer deleteData (String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, "ID = ?", new String[] {id});
+    }
 }
 
