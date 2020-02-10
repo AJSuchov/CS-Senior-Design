@@ -24,3 +24,14 @@ Researching looking at code for how to connect two device by a QR code
 https://github.com/dm77/ZBarScanner
 
 PI mysql user: root  password: SenDes1
+
+AWS Information:
+ec2-18-219-68-136.us-east-2.compute.amazonaws.com
+
+SSH: Ubuntu no password
+Ask AJ for the private key
+
+phpmyadmin:
+user: root
+pass: SenDes1
+
