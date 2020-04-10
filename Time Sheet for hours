@@ -19,7 +19,7 @@ Vince      11/09/2019       3:00 p.m. - 7:00 p.m.         6.0                 Pr
 Aaron      11/28/2019       12:30 p.m. - 3:00 p.m.        3.0                 Hand Drawing DB and UI Diagrams
 Aaron      11/30/2019       1:00 p.m. - 5:00 p.m.         4.0                 Converting Drawings to digital form
 Vince      11/30/2019       5:00 p.m. - 8:00 p.m.         3.0                 Research the best way to connect two phones by a QR Code(zBar)
-Aaron      11/30/2019       10:00 p.m. - 12:00 a.m.       2.0                 COnverting Drawings to digital form
+Aaron      11/30/2019       10:00 p.m. - 12:00 a.m.       2.0                 Converting Drawings to digital form
 Vince      12/1/2019        6:00 p.m. - 8:00 p.m.         2.0                 Researching SQL and Android Studio connection techniques
 Vince      12/7/2019        10:00 a.m. - 12:00 a.m.       2.0                 Starting to edit final report and get all documents together
 Aaron      12/9/2019        9:15 p.m. - 11:15 p.m.        2.0                 Edited final report that was made in new repository
@@ -43,5 +43,5 @@ Vince      2/20/2020        4:00 p.m. - 7:00 p.m.         3.0                 Re
 Vince      2/26/2020        5:00 p.m. - 9:00 p.m.         4.0                 Finishing UI prototype
 Vince      3/10/2020        12:00 p.m. - 4:00 p.m.        4.0                 Working on Implimenting AJ's DB to my UI
 Vince      3/20/2020        1:00 p.m. - 4:00 p.m.         3.0                 Switching UI from kotlin to Java for easier DB implimentation
-Vince      4/01/2020        3:00 p.m. - 6:00 p.m.         3.0                 Deleting and Fixing bugs in UI prototype
+Vince      4/01/2020        3:00 p.m. - 6:00 p.m.         3.0                 Deleting useless activites and Fixing bugs in UI prototype
 Vince      4/9/2020         12:00 p.m. - 8:00 p.m.        8.0                 Speaking to AJ for our final project expo info and implimenting UI to DB prototypes while making a program demo video
